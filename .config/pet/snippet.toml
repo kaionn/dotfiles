@@ -1,0 +1,24 @@
+[[snippets]]
+  description = "lsof-portscan"
+  command = "lsof -n -i -P | grep \"LISTEN\""
+  output = ""
+
+[[snippets]]
+  description = "blueutil-connect-airpods"
+  command = "blueutil --connect 38-ec-0d-0b-ef-25"
+  output = ""
+
+[[snippets]]
+  description = "blueutil-power-on"
+  command = "blueutil --power 1"
+  output = ""
+
+[[snippets]]
+  description = "ngrep-localhost"
+  command = "ngrep -W byline -q -d lo0 'HTTP' port 8080"
+  output = ""
+
+[[snippets]]
+  description = "export-eks-config"
+  command = "export KUBECONFIG=/etc/eksctl/kubeconfig.yaml"
+  output = ""

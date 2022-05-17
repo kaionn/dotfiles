@@ -1,0 +1,46 @@
+# mac
+dscacheutil -flushcache # delete dns cache
+# git
+git commit --amend
+git branch -D # delete local branch
+git push --delete origin branch_name # delete remote branch
+git show-branch | grep '*' | grep -v "$(git rev-parse --abbrev-ref HEAD)" | head -1 | awk -F'[]~^[]' '{print $2}' # check parent branch
+git log --oneline | peco | cut -d" " -f1 | xargs git show # git show
+git submodule update -i # git submodule
+# curl
+curl -H "Content-Type: application/json" -X POST -d '{"username":"xyz","password":"xyz"}' http://localhost:3000/v1/login
+# kubernetes
+kubectl config set-context $(kubectl config current-context) --namespace=<YOUR_NAMESPACE> # change namespace
+# investigation
+netstat -ltapn | grep ESTABLISHED | more
+netstat -ltan | grep ":80 " | awk '{print $5}' | awk -F : '{print $4}' | sort | uniq -c | sort -nr | head
+lsof -i:80
+nc localhost 8080 # netcat
+dstat -Tclmdrn
+dstat -Tclm
+dstat -Tclr
+dstat -Tclnd
+dstat -Tcldr
+dstat --top-cpu --top-cputime
+dstat --top-io --top-bio
+dstat --top-io-adv --top-bio-adv
+date +%Y%m%d
+date -r 1537370697
+echo | openssl s_client -connect google.co.jp:443 | openssl x509 -text | less
+openssl rsa -in private-key.pem -text -noout
+openssl rsa -pubin -in public-key.pem -text -noout
+openssl x509 -in public-key.crt -text -noout
+openssl ciphers -v
+du -ma | sort -rn | head -100 # sort disk
+find . -type f -name "*.php"
+find . -mtime +15 -name "*.tar.gz" | xargs rm # delete backup files which are made 15 days ago
+find . -type f -name "\*.txt" | xargs grep "hoge" # search .txt file written in xxx
+find / -size +1G -ls
+diff -u
+du -sh dir # folder size
+# tmux
+tmux set-window-option synchronize-panes on
+# mac
+networksetup -setdnsservers Wi-Fi 8.8.8.8
+networksetup -getdnsservers Wi-Fi
+networksetup -setairportpower en0 on
