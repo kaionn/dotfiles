@@ -1,0 +1,70 @@
+# --- Homebrew 環境の初期化 ---
+# Intel Mac 向けの Homebrew パス設定
+export HOMEBREW_PREFIX="/usr/local"
+export HOMEBREW_CELLAR="/usr/local/Cellar"
+export HOMEBREW_REPOSITORY="/usr/local/Homebrew"
+eval $(/usr/local/bin/brew shellenv)
+
+# --- カスタムパスの設定 ---
+# PATH の重複を防ぐ (-U オプション)
+typeset -U PATH path
+export VOLTA_HOME="$HOME/.volta"
+# 優先順位の高い順に配置: Volta > ローカルバイナリ > LM Studio > antigravity
+path=("$VOLTA_HOME/bin" "$HOME/.local/bin" "$HOME/.lmstudio/bin" "$HOME/.antigravity/antigravity/bin" $path)
+export PATH
+
+# --- ロケールとヒストリー設定 ---
+export LANG=en_US.UTF-8  # UTF-8 で統一
+export HISTSIZE=10000     # メモリ上のコマンド履歴サイズ
+export SAVEHIST=10000     # ファイルに保存する履歴サイズ
+export MANPAGER="col -b -x|vim -R -c 'set ft=man nolist nomod noma' -"  # man を Vim で表示
+
+# --- シェル機能の有効化 ---
+autoload -U +X compinit && compinit  # 補完システムの初期化
+
+# 便利なシェルオプション
+setopt auto_cd              # ディレクトリ名だけで cd する
+setopt hist_ignore_dups     # 直前と同じコマンドは履歴に追加しない
+setopt hist_reduce_blanks   # 余分な空白を削除して履歴に記録
+setopt hist_save_no_dups    # 重複するコマンドは古い方を削除
+setopt share_history        # 複数のシェル間で履歴を共有
+setopt complete_in_word     # 単語の途中でも補完を有効化
+
+# --- 補完の挙動をカスタマイズ ---
+zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'  # 大文字小文字を区別しない補完
+zstyle ':completion:*' menu select                          # 補完候補を選択式メニューで表示
+
+# --- よく使うコマンドのエイリアス ---
+# eza がインストールされていれば、それを使った ls を利用
+if command -v eza &> /dev/null; then
+    alias ls='eza --group-directories-first'  # ディレクトリを先頭に表示
+    alias tree='eza --tree'                   # ツリー表示
+else
+    alias ls='ls -G'  # 色付き表示 (デフォルト)
+fi
+
+# クイックメモ用のエイリアス (一時ファイルに markdown で記録)
+alias note='vim -c "setlocal buftype=nofile bufhidden=wipe noswapfile filetype=markdown" /tmp/note.md'
+# YouTube 動画のダウンロード (タイトルをファイル名に)
+alias dl='yt-dlp -o "%(title)s.%(ext)s"'
+
+# --- インタラクティブな履歴検索 ---
+# Ctrl+R で peco を使った履歴検索を実行
+function peco-select-history() {
+    BUFFER=$(fc -l -n 1 | tail -r | awk '!a[$0]++' | peco --query "$LBUFFER")
+    CURSOR=${#BUFFER}
+}
+
+zle -N peco-select-history
+bindkey '^R' peco-select-history  # Ctrl+R にバインド
+
+# --- プロンプトとシンタックスハイライト ---
+eval "$(starship init zsh)"  # starship プロンプトの初期化
+
+# zsh プラグインの読み込み
+source $HOMEBREW_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh       # コマンド補完候補の自動提案
+source $HOMEBREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh  # コマンドのシンタックスハイライト
+
+# --- 起動時のディレクトリ設定 ---
+# シェル起動時に iCloud Drive のルートに移動
+cd "$HOME/Library/Mobile Documents/com~apple~CloudDocs"
