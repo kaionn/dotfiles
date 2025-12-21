@@ -1,16 +1,60 @@
+# Ghostty Configuration
+# Base: Existing settings, Enhanced with iTerm2 migration
+
+# =============================================================================
+# Theme & Appearance
+# =============================================================================
 theme = TokyoNight
 maximize = true
-font-family = PlemolJP35 Console NF
 background-opacity = 0.8
-macos-titlebar-style = hidden
-macos-titlebar-style = tabs
 background-blur = true
+macos-titlebar-style = tabs
+
+# =============================================================================
+# Font Settings
+# =============================================================================
+font-family = PlemolJP35 Console NF
+font-size = 20
+font-thicken = true
+
+# =============================================================================
+# Window & Layout
+# =============================================================================
 window-padding-x = 20
 window-padding-y = 0,10
-font-size = 20
-adjust-cell-height = 4
-font-thicken = true
 window-padding-balance = true
+adjust-cell-height = 4
+
+# =============================================================================
+# Terminal Settings (from iTerm2)
+# =============================================================================
+scrollback-limit = 1000
+cursor-style = block
+cursor-style-blink = false
+shell-integration = zsh
+term = xterm-256color
+mouse-hide-while-typing = true
+confirm-close-surface = false
+
+# =============================================================================
+# macOS Specific (from iTerm2)
+# =============================================================================
+macos-option-as-alt = true
+
+# =============================================================================
+# Quick Terminal (Global Hotkey)
+# =============================================================================
+keybind = global:super+shift+enter=toggle_quick_terminal
+quick-terminal-autohide = false
+quick-terminal-size = 100%,100%
+
+# =============================================================================
+# Keybindings
+# =============================================================================
 keybind = ctrl+h=goto_split:left
 keybind = ctrl+l=goto_split:right
 keybind = shift+enter=text:\x1b\r
+
+# Tab navigation (iTerm2 style)
+keybind = super+shift+left_bracket=previous_tab
+keybind = super+shift+right_bracket=next_tab
