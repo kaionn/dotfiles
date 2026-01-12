@@ -1,0 +1,105 @@
+# Aerospace 設定ファイル
+# ドキュメント: https://nikitabobko.github.io/AeroSpace/guide
+
+# ログイン時に自動起動
+start-at-login = true
+
+# JankyBorders の起動（アクティブウィンドウにボーダー表示）
+after-startup-command = ['exec-and-forget borders']
+
+# マウスが Aerospace で管理されていないウィンドウにフォーカスしたときの動作
+# 'lazy' = Aerospace コマンド実行後にワークスペースへ移動
+on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
+
+# Sketchybar との連携
+# ワークスペース変更時に Sketchybar に通知
+exec-on-workspace-change = ['/bin/bash', '-c', 'sketchybar --trigger aerospace_workspace_change']
+
+# ウィンドウ間のギャップ設定
+[gaps]
+inner.horizontal = 4
+inner.vertical = 4
+outer.left = 0
+outer.bottom = 0
+outer.top = 0
+outer.right = 0
+
+# メインモードのキーバインド
+[mode.main.binding]
+# ウィンドウ間のフォーカス移動 (alt + hjkl)
+alt-h = 'focus left'
+alt-j = 'focus down'
+alt-k = 'focus up'
+alt-l = 'focus right'
+
+# ウィンドウの移動 (alt + shift + hjkl)
+alt-shift-h = 'move left'
+alt-shift-j = 'move down'
+alt-shift-k = 'move up'
+alt-shift-l = 'move right'
+
+# ウィンドウのリサイズ
+alt-minus = 'resize smart -50'
+alt-equal = 'resize smart +50'
+
+# ワークスペースの切り替え (alt + 数字)
+alt-1 = 'workspace 1'
+alt-2 = 'workspace 2'
+alt-3 = 'workspace 3'
+alt-4 = 'workspace 4'
+alt-5 = 'workspace 5'
+alt-6 = 'workspace 6'
+alt-7 = 'workspace 7'
+alt-8 = 'workspace 8'
+alt-9 = 'workspace 9'
+
+# ウィンドウをワークスペースに移動 (alt + shift + 数字)
+alt-shift-1 = 'move-node-to-workspace 1'
+alt-shift-2 = 'move-node-to-workspace 2'
+alt-shift-3 = 'move-node-to-workspace 3'
+alt-shift-4 = 'move-node-to-workspace 4'
+alt-shift-5 = 'move-node-to-workspace 5'
+alt-shift-6 = 'move-node-to-workspace 6'
+alt-shift-7 = 'move-node-to-workspace 7'
+alt-shift-8 = 'move-node-to-workspace 8'
+alt-shift-9 = 'move-node-to-workspace 9'
+
+# レイアウト変更
+alt-slash = 'layout tiles horizontal vertical'  # タイルレイアウト切替
+alt-comma = 'layout accordion horizontal vertical'  # アコーディオンレイアウト
+
+# フルスクリーン切替
+alt-f = 'fullscreen'
+
+# 分割方向の変更
+alt-backslash = 'join-with right'
+alt-shift-backslash = 'join-with down'
+
+# サービスモードへの切替 (設定リロードなど)
+alt-shift-semicolon = 'mode service'
+
+# フローティング切替
+alt-shift-space = 'layout floating tiling'
+
+# ウィンドウを閉じる
+alt-shift-q = 'close'
+
+# サービスモード
+[mode.service.binding]
+esc = ['reload-config', 'mode main']
+r = ['flatten-workspace-tree', 'mode main']  # レイアウトリセット
+f = ['layout floating tiling', 'mode main']  # フロート切替
+backspace = ['close-all-windows-but-current', 'mode main']
+
+# 特定アプリの設定
+[[on-window-detected]]
+if.app-id = 'com.apple.finder'
+run = 'layout floating'
+
+[[on-window-detected]]
+if.app-id = 'com.apple.systempreferences'
+run = 'layout floating'
+
+[[on-window-detected]]
+if.app-id = 'com.apple.calculator'
+run = 'layout floating'

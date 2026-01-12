@@ -54,7 +54,9 @@ macos-option-as-alt = true
 # =============================================================================
 keybind = global:super+shift+enter=toggle_quick_terminal
 quick-terminal-autohide = false
-quick-terminal-size = 100%,100%
+quick-terminal-position = top
+quick-terminal-size = 100%
+quick-terminal-screen = mouse
 
 # =============================================================================
 # Keybindings
