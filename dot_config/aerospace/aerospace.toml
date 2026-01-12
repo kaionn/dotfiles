@@ -5,27 +5,41 @@
 start-at-login = true
 
 # JankyBorders の起動（アクティブウィンドウにボーダー表示）
-after-startup-command = ['exec-and-forget borders']
+after-startup-command = [
+  'exec-and-forget borders active_color=0xffe1e3e4 inactive_color=0xff494d64 width=5.0'
+]
 
-# マウスが Aerospace で管理されていないウィンドウにフォーカスしたときの動作
-# 'lazy' = Aerospace コマンド実行後にワークスペースへ移動
-on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
+# 正規化設定
+enable-normalization-flatten-containers = true
+enable-normalization-opposite-orientation-for-nested-containers = true
+
+# レイアウト設定
+accordion-padding = 30
+default-root-container-layout = 'tiles'
+default-root-container-orientation = 'auto'
+
+# キーマッピング
+key-mapping.preset = 'qwerty'
 
 # Sketchybar との連携
-# ワークスペース変更時に Sketchybar に通知
 exec-on-workspace-change = ['/bin/bash', '-c', 'sketchybar --trigger aerospace_workspace_change']
 
 # ウィンドウ間のギャップ設定
 [gaps]
-inner.horizontal = 4
-inner.vertical = 4
-outer.left = 0
-outer.bottom = 0
-outer.top = 0
-outer.right = 0
+inner.horizontal = 10
+inner.vertical = 10
+outer.left = 10
+outer.bottom = 10
+outer.top = 10
+outer.right = 10
 
 # メインモードのキーバインド
 [mode.main.binding]
+
+# レイアウト変更
+alt-slash = 'layout tiles horizontal vertical'
+alt-comma = 'layout accordion horizontal vertical'
+
 # ウィンドウ間のフォーカス移動 (alt + hjkl)
 alt-h = 'focus left'
 alt-j = 'focus down'
@@ -39,59 +53,49 @@ alt-shift-k = 'move up'
 alt-shift-l = 'move right'
 
 # ウィンドウのリサイズ
-alt-minus = 'resize smart -50'
-alt-equal = 'resize smart +50'
+alt-shift-minus = 'resize smart -50'
+alt-shift-equal = 'resize smart +50'
 
-# ワークスペースの切り替え (alt + 数字)
-alt-1 = 'workspace 1'
-alt-2 = 'workspace 2'
-alt-3 = 'workspace 3'
-alt-4 = 'workspace 4'
-alt-5 = 'workspace 5'
-alt-6 = 'workspace 6'
-alt-7 = 'workspace 7'
-alt-8 = 'workspace 8'
-alt-9 = 'workspace 9'
+# ワークスペースの切り替え (alt + アルファベット)
+# W: Web, T: Terminal, I: IDE, C: Communication, A: AI, D: Docs, G: DB/API
+alt-a = 'workspace A'
+alt-c = 'workspace C'
+alt-d = 'workspace D'
+alt-g = 'workspace G'
+alt-i = 'workspace I'
+alt-t = 'workspace T'
+alt-w = 'workspace W'
 
-# ウィンドウをワークスペースに移動 (alt + shift + 数字)
-alt-shift-1 = 'move-node-to-workspace 1'
-alt-shift-2 = 'move-node-to-workspace 2'
-alt-shift-3 = 'move-node-to-workspace 3'
-alt-shift-4 = 'move-node-to-workspace 4'
-alt-shift-5 = 'move-node-to-workspace 5'
-alt-shift-6 = 'move-node-to-workspace 6'
-alt-shift-7 = 'move-node-to-workspace 7'
-alt-shift-8 = 'move-node-to-workspace 8'
-alt-shift-9 = 'move-node-to-workspace 9'
+# ウィンドウをワークスペースに移動 (alt + shift + アルファベット)
+alt-shift-a = 'move-node-to-workspace A'
+alt-shift-c = 'move-node-to-workspace C'
+alt-shift-d = 'move-node-to-workspace D'
+alt-shift-f = 'fullscreen'
+alt-shift-g = 'move-node-to-workspace G'
+alt-shift-i = 'move-node-to-workspace I'
+alt-shift-t = 'move-node-to-workspace T'
+alt-shift-w = 'move-node-to-workspace W'
 
-# レイアウト変更
-alt-slash = 'layout tiles horizontal vertical'  # タイルレイアウト切替
-alt-comma = 'layout accordion horizontal vertical'  # アコーディオンレイアウト
+# ワークスペース切り替え
+alt-tab = 'workspace-back-and-forth'
+alt-shift-tab = 'move-workspace-to-monitor --wrap-around next'
 
-# フルスクリーン切替
-alt-f = 'fullscreen'
-
-# 分割方向の変更
-alt-backslash = 'join-with right'
-alt-shift-backslash = 'join-with down'
-
-# サービスモードへの切替 (設定リロードなど)
+# サービスモードへの切替
 alt-shift-semicolon = 'mode service'
-
-# フローティング切替
-alt-shift-space = 'layout floating tiling'
-
-# ウィンドウを閉じる
-alt-shift-q = 'close'
 
 # サービスモード
 [mode.service.binding]
 esc = ['reload-config', 'mode main']
-r = ['flatten-workspace-tree', 'mode main']  # レイアウトリセット
-f = ['layout floating tiling', 'mode main']  # フロート切替
+r = ['flatten-workspace-tree', 'mode main']
+f = ['layout floating tiling', 'mode main']
 backspace = ['close-all-windows-but-current', 'mode main']
 
-# 特定アプリの設定
+alt-shift-h = ['join-with left', 'mode main']
+alt-shift-j = ['join-with down', 'mode main']
+alt-shift-k = ['join-with up', 'mode main']
+alt-shift-l = ['join-with right', 'mode main']
+
+# 特定アプリの設定（フローティング）
 [[on-window-detected]]
 if.app-id = 'com.apple.finder'
 run = 'layout floating'
@@ -103,3 +107,104 @@ run = 'layout floating'
 [[on-window-detected]]
 if.app-id = 'com.apple.calculator'
 run = 'layout floating'
+
+[[on-window-detected]]
+if.app-id = 'pl.maketheweb.cleanshotx'
+run = 'layout floating'
+
+# ===== アプリ別自動配置 =====
+
+# W: Web Browser
+[[on-window-detected]]
+if.app-id = 'company.thebrowser.Browser'
+run = 'move-node-to-workspace W'
+
+[[on-window-detected]]
+if.app-id = 'com.apple.Safari'
+run = 'move-node-to-workspace W'
+
+[[on-window-detected]]
+if.app-id = 'com.google.Chrome'
+run = 'move-node-to-workspace W'
+
+[[on-window-detected]]
+if.app-id = 'jp.kiok.nani'
+run = 'move-node-to-workspace W'
+
+# T: Terminal
+[[on-window-detected]]
+if.app-id = 'org.alacritty'
+run = 'move-node-to-workspace T'
+
+[[on-window-detected]]
+if.app-id = 'com.mitchellh.ghostty'
+run = 'move-node-to-workspace T'
+
+[[on-window-detected]]
+if.app-id = 'com.googlecode.iterm2'
+run = 'move-node-to-workspace T'
+
+# I: IDE
+[[on-window-detected]]
+if.app-id = 'com.microsoft.VSCode'
+run = 'move-node-to-workspace I'
+
+[[on-window-detected]]
+if.app-id = 'dev.zed.Zed'
+run = 'move-node-to-workspace I'
+
+[[on-window-detected]]
+if.app-id = 'com.todesktop.230313mzl4w4u92'
+run = 'move-node-to-workspace I'
+
+[[on-window-detected]]
+if.app-id = 'com.google.antigravity'
+run = 'move-node-to-workspace I'
+
+# C: Communication
+[[on-window-detected]]
+if.app-id = 'com.tinyspeck.slackmacgap'
+run = 'move-node-to-workspace C'
+
+[[on-window-detected]]
+if.app-id = 'com.gather.GatherV2'
+run = 'move-node-to-workspace C'
+
+[[on-window-detected]]
+if.app-id = 'com.hnc.Discord'
+run = 'move-node-to-workspace C'
+
+[[on-window-detected]]
+if.app-id = 'com.apple.automator.TakeScreenshot'
+run = 'move-node-to-workspace C'
+
+# A: AI
+[[on-window-detected]]
+if.app-id = 'com.anthropic.claudefordesktop'
+run = 'move-node-to-workspace A'
+
+# D: Docs
+[[on-window-detected]]
+if.app-id = 'md.obsidian'
+run = 'move-node-to-workspace D'
+
+[[on-window-detected]]
+if.app-id = 'com.TickTick.task.mac'
+run = 'move-node-to-workspace D'
+
+# G: DB/API Tools
+[[on-window-detected]]
+if.app-id = 'org.jkiss.dbeaver.core.product'
+run = 'move-node-to-workspace G'
+
+[[on-window-detected]]
+if.app-id = 'com.postmanlabs.mac'
+run = 'move-node-to-workspace G'
+
+# モニター割り当て（マルチモニター環境の場合）
+[workspace-to-monitor-force-assignment]
+W = 'main'
+A = 'main'
+T = 'main'
+I = 'main'
+C = 2
