@@ -37,56 +37,57 @@ outer.top = [{ monitor.built-in = 1 }, 35]
 outer.right = 1
 
 # メインモードのキーバインド
+# HHKB 向け: ctrl-shift で切替・フォーカス、ctrl-alt で移動
 [mode.main.binding]
 
 # レイアウト変更
-alt-slash = 'layout tiles horizontal vertical'
-alt-comma = 'layout accordion horizontal vertical'
+ctrl-shift-slash = 'layout tiles horizontal vertical'
+ctrl-shift-comma = 'layout accordion horizontal vertical'
 
-# ウィンドウ間のフォーカス移動 (alt + hjkl)
-alt-h = 'focus left'
-alt-j = 'focus down'
-alt-k = 'focus up'
-alt-l = 'focus right'
+# ウィンドウ間のフォーカス移動 (ctrl-shift + hjkl)
+ctrl-shift-h = 'focus left'
+ctrl-shift-j = 'focus down'
+ctrl-shift-k = 'focus up'
+ctrl-shift-l = 'focus right'
 
-# ウィンドウの移動 (alt + shift + hjkl)
-alt-shift-h = 'move left'
-alt-shift-j = 'move down'
-alt-shift-k = 'move up'
-alt-shift-l = 'move right'
+# ウィンドウの移動 (ctrl-alt + hjkl)
+ctrl-alt-h = 'move left'
+ctrl-alt-j = 'move down'
+ctrl-alt-k = 'move up'
+ctrl-alt-l = 'move right'
 
 # ウィンドウのリサイズ
-alt-shift-minus = 'resize smart -50'
-alt-shift-equal = 'resize smart +50'
+ctrl-alt-minus = 'resize smart -50'
+ctrl-alt-equal = 'resize smart +50'
 
-# ワークスペースの切り替え (alt + アルファベット)
-# W: Web, T: Terminal, I: IDE, C: Communication, A: AI, D: Docs, G: DB/API, M: Meeting
-alt-a = 'workspace A'
-alt-c = 'workspace C'
-alt-d = 'workspace D'
-alt-g = 'workspace G'
-alt-i = 'workspace I'
-alt-m = 'workspace M'
-alt-t = 'workspace T'
-alt-w = 'workspace W'
+# ワークスペースの切り替え (ctrl-shift + アルファベット)
+# W: Web, T: Terminal, I: IDE, M: Meeting, C: Communication, A: AI, D: Docs, G: DB/API
+ctrl-shift-a = 'workspace A'
+ctrl-shift-c = 'workspace C'
+ctrl-shift-d = 'workspace D'
+ctrl-shift-g = 'workspace G'
+ctrl-shift-i = 'workspace I'
+ctrl-shift-m = 'workspace M'
+ctrl-shift-t = 'workspace T'
+ctrl-shift-w = 'workspace W'
 
-# ウィンドウをワークスペースに移動 (alt + shift + アルファベット)
-alt-shift-a = 'move-node-to-workspace A'
-alt-shift-c = 'move-node-to-workspace C'
-alt-shift-d = 'move-node-to-workspace D'
-alt-shift-f = 'fullscreen'
-alt-shift-g = 'move-node-to-workspace G'
-alt-shift-i = 'move-node-to-workspace I'
-alt-shift-m = 'move-node-to-workspace M'
-alt-shift-t = 'move-node-to-workspace T'
-alt-shift-w = 'move-node-to-workspace W'
+# ウィンドウをワークスペースに移動 (ctrl-alt + アルファベット)
+ctrl-alt-a = 'move-node-to-workspace A'
+ctrl-alt-c = 'move-node-to-workspace C'
+ctrl-alt-d = 'move-node-to-workspace D'
+ctrl-alt-f = 'fullscreen'
+ctrl-alt-g = 'move-node-to-workspace G'
+ctrl-alt-i = 'move-node-to-workspace I'
+ctrl-alt-m = 'move-node-to-workspace M'
+ctrl-alt-t = 'move-node-to-workspace T'
+ctrl-alt-w = 'move-node-to-workspace W'
 
 # ワークスペース切り替え
-alt-tab = 'workspace-back-and-forth'
-alt-shift-tab = 'move-workspace-to-monitor --wrap-around next'
+ctrl-shift-tab = 'workspace-back-and-forth'
+ctrl-alt-tab = 'move-workspace-to-monitor --wrap-around next'
 
 # サービスモードへの切替
-alt-shift-semicolon = 'mode service'
+ctrl-alt-semicolon = 'mode service'
 
 # サービスモード
 [mode.service.binding]
