@@ -217,8 +217,8 @@ if.app-id = 'com.google.Chrome.app.kjgfgldnnfoeklkmfkjfagphfepbbdan'
 run = 'move-node-to-workspace M'
 
 # モニター割り当て（マルチモニター環境の場合）
+# 未指定のワークスペースはどのモニターでも表示可能
 [workspace-to-monitor-force-assignment]
-W = 'main'
 A = 'main'
 T = 'main'
 I = 'main'

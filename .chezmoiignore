@@ -10,3 +10,19 @@
 .claude/.DS_Store
 .claude/plugins/
 .claude/ide/
+.claude/cache/
+.claude/memory/
+.claude/paste-cache/
+.claude/plans/
+.claude/session-env/
+.claude/session-logs/
+.claude/state/
+.claude/stats-cache.json
+.claude/telemetry/
+.claude/settings.local.json
+.claude/security_warnings_state_*.json
+.claude/hooks/node_modules/
+.claude/hooks/config.json
+
+# ネストされた .claude ディレクトリを除外
+**/.claude/

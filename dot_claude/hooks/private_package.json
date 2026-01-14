@@ -1,0 +1,12 @@
+{
+  "name": "claude-code-hooks",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Claude Code hooks for session logging and documentation",
+  "scripts": {
+    "test": "node session-logger.mjs --test"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.39.0"
+  }
+}

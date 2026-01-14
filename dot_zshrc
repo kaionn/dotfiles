@@ -117,7 +117,7 @@ source $HOMEBREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zs
 # ============================================
 # 起動時の設定
 # ============================================
-cd "$HOME/Library/Mobile Documents/com~apple~CloudDocs"
+cd ~
 
 # direnv hook
 eval "$(direnv hook zsh)"

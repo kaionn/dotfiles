@@ -1,40 +1,41 @@
-# --- 対話シェル検出 ---
-# 対話モードでない場合は処理を中断 (スクリプト実行時の無駄な処理を防ぐ)
+# ============================================
+# 対話シェルチェック
+# ============================================
 case $- in
-    *i*) ;;  # 対話モード (interactive) なら継続
-      *) return;;  # 非対話モードなら終了
+    *i*) ;;
+      *) return;;
 esac
 
-# --- Linux Homebrew の初期化 ---
-# Linux 環境で Homebrew がインストールされていれば環境変数を設定
+# ============================================
+# PATH と環境変数
+# ============================================
 if [ -d /home/linuxbrew/.linuxbrew/bin ]; then
     eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 fi
 
-# --- カスタムパスの設定 ---
 export VOLTA_HOME="$HOME/.volta"
-# 優先度の高い順に PATH に追加: Volta > ローカルバイナリ > LM Studio > antigravity
 export PATH="$VOLTA_HOME/bin:$HOME/.local/bin:$HOME/.lmstudio/bin:$HOME/.antigravity/antigravity/bin:$PATH"
 
-# --- ロケールと表示設定 ---
-export LANG=en_US.UTF-8  # UTF-8 で統一
-export HISTSIZE=10000     # メモリ上のコマンド履歴数
-export SAVEHIST=10000     # 保存する履歴数
-export MANPAGER="col -b -x|vim -R -c 'set ft=man nolist nomod noma' -"  # man ページを Vim で読む
+export LANG=en_US.UTF-8
+export HISTSIZE=10000
+export SAVEHIST=10000
+export MANPAGER="col -b -x|vim -R -c 'set ft=man nolist nomod noma' -"
 
-# --- Bash シェルオプション ---
-shopt -s histappend    # 履歴を上書きせず追記する
-shopt -s checkwinsize  # ウィンドウサイズ変更時に LINES と COLUMNS を更新
-shopt -s cdspell       # cd のタイポを自動修正
+# ============================================
+# Bash オプションと履歴設定
+# ============================================
+shopt -s histappend
+shopt -s checkwinsize
+shopt -s cdspell
 
-# --- 履歴管理の詳細設定 ---
-HISTCONTROL=ignoreboth:erasedups  # 重複と空白から始まるコマンドを除外
-HISTSIZE=10000         # メモリ上の履歴サイズ
-HISTFILESIZE=10000     # ファイルに保存する履歴サイズ
-SAVEHIST=10000         # 保存する履歴数
+HISTCONTROL=ignoreboth:erasedups
+HISTSIZE=10000
+HISTFILESIZE=10000
+SAVEHIST=10000
 
-# --- Bash 補完機能の有効化 ---
-# POSIX モードでなければ補完スクリプトを読み込む
+# ============================================
+# 補完設定
+# ============================================
 if ! shopt -oq posix; then
   if [ -f /usr/share/bash-completion/bash_completion ]; then
     . /usr/share/bash-completion/bash_completion
@@ -43,31 +44,29 @@ if ! shopt -oq posix; then
   fi
 fi
 
-# 補完時に大文字小文字を区別しない
 bind "set completion-ignore-case on"
 
-# --- 色設定とエイリアス ---
-# dircolors が利用可能なら、ls や grep に色を付ける
+# ============================================
+# エイリアス
+# ============================================
 if [ -x /usr/bin/dircolors ]; then
     test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
-    alias grep='grep --color=auto'  # grep 結果に色付け
+    alias grep='grep --color=auto'
 fi
 
-# eza がインストールされていれば、それを使った ls を利用
 if command -v eza &> /dev/null; then
-    alias ls='eza --group-directories-first'  # ディレクトリを先頭に表示
-    alias tree='eza --tree'                   # ツリー表示
+    alias ls='eza --group-directories-first'
+    alias tree='eza --tree'
 else
-    alias ls='ls --color=auto'  # 色付き表示 (デフォルト)
+    alias ls='ls --color=auto'
 fi
 
-# クイックメモ用のエイリアス (一時ファイルに markdown で記録)
 alias note='vim -c "setlocal buftype=nofile bufhidden=wipe noswapfile filetype=markdown" /tmp/note.md'
-# YouTube 動画のダウンロード (タイトルをファイル名に)
 alias dl='yt-dlp -o "%(title)s.%(ext)s"'
 
-# --- インタラクティブな履歴検索 ---
-# Ctrl+R で peco を使った履歴検索を実行
+# ============================================
+# 関数
+# ============================================
 function peco-select-history() {
     local selected
     selected=$(history | tac | awk '{$1=""; print substr($0,2)}' | awk '!a[$0]++' | peco --query "$READLINE_LINE")
@@ -75,19 +74,20 @@ function peco-select-history() {
     READLINE_POINT=${#READLINE_LINE}
 }
 
-# peco がインストールされていれば Ctrl+R にバインド
 if command -v peco &> /dev/null; then
     bind -x '"\C-r": peco-select-history'
 fi
 
-# --- プロンプトのカスタマイズ ---
-# starship がインストールされていれば初期化
+# ============================================
+# プロンプト
+# ============================================
 if command -v starship &> /dev/null; then
     eval "$(starship init bash)"
 fi
 
-# --- 追加のエイリアス読み込み ---
-# ユーザー固有のエイリアスがあれば読み込む
+# ============================================
+# 追加エイリアス
+# ============================================
 if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
 fi
