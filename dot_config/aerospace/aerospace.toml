@@ -60,12 +60,13 @@ alt-shift-minus = 'resize smart -50'
 alt-shift-equal = 'resize smart +50'
 
 # ワークスペースの切り替え (alt + アルファベット)
-# W: Web, T: Terminal, I: IDE, C: Communication, A: AI, D: Docs, G: DB/API
+# W: Web, T: Terminal, I: IDE, C: Communication, A: AI, D: Docs, G: DB/API, M: Meeting
 alt-a = 'workspace A'
 alt-c = 'workspace C'
 alt-d = 'workspace D'
 alt-g = 'workspace G'
 alt-i = 'workspace I'
+alt-m = 'workspace M'
 alt-t = 'workspace T'
 alt-w = 'workspace W'
 
@@ -76,6 +77,7 @@ alt-shift-d = 'move-node-to-workspace D'
 alt-shift-f = 'fullscreen'
 alt-shift-g = 'move-node-to-workspace G'
 alt-shift-i = 'move-node-to-workspace I'
+alt-shift-m = 'move-node-to-workspace M'
 alt-shift-t = 'move-node-to-workspace T'
 alt-shift-w = 'move-node-to-workspace W'
 
@@ -204,6 +206,15 @@ run = 'move-node-to-workspace G'
 if.app-id = 'com.postmanlabs.mac'
 run = 'move-node-to-workspace G'
 
+# M: Meeting (Zoom, Google Meet, etc.)
+[[on-window-detected]]
+if.app-id = 'us.zoom.xos'
+run = 'move-node-to-workspace M'
+
+[[on-window-detected]]
+if.app-id = 'com.google.Chrome.app.kjgfgldnnfoeklkmfkjfagphfepbbdan'
+run = 'move-node-to-workspace M'
+
 # モニター割り当て（マルチモニター環境の場合）
 [workspace-to-monitor-force-assignment]
 W = 'main'
@@ -211,3 +222,4 @@ A = 'main'
 T = 'main'
 I = 'main'
 C = 2
+M = '27GL850'
