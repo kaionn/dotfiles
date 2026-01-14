@@ -25,13 +25,16 @@ key-mapping.preset = 'qwerty'
 exec-on-workspace-change = ['/bin/bash', '-c', 'sketchybar --trigger aerospace_workspace_change']
 
 # ウィンドウ間のギャップ設定
+# outer.top: モニター別に設定
+#   - 内蔵ディスプレイ: Notch があるため余白不要 (1px)
+#   - 外部ディスプレイ: Sketchybar の高さ(30px) + 余裕 (35px)
 [gaps]
 inner.horizontal = 10
 inner.vertical = 10
-outer.left = 10
-outer.bottom = 10
-outer.top = 10
-outer.right = 10
+outer.left = 1
+outer.bottom = 1
+outer.top = [{ monitor.built-in = 1 }, 35]
+outer.right = 1
 
 # メインモードのキーバインド
 [mode.main.binding]
