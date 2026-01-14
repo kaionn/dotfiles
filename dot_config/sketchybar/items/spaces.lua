@@ -12,6 +12,7 @@ local function get_workspace_color(ws)
 		W = colors.cmap_8,  -- Web
 		T = colors.cmap_5,  -- Terminal
 		I = colors.cmap_6,  -- IDE
+		M = colors.cmap_9,  -- Meeting
 		C = colors.cmap_2,  -- Communication
 		A = colors.cmap_1,  -- AI
 		D = colors.cmap_3,  -- Docs
@@ -21,7 +22,7 @@ local function get_workspace_color(ws)
 end
 
 -- 表示するワークスペースの順序
-local workspace_order = { "W", "T", "I", "C", "A", "D", "G" }
+local workspace_order = { "W", "T", "I", "M", "C", "A", "D", "G" }
 
 -- ワークスペースアイテムを格納
 local spaces = {}
