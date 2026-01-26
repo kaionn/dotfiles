@@ -1,0 +1,30 @@
+// Claude Code Dashboard Layout
+// Usage: zellij --layout claude-code
+
+layout {
+    // Disable tab bar
+    default_tab_template {
+        children
+    }
+
+    // Use current working directory for all panes
+    cwd "."
+
+    pane split_direction="vertical" {
+        // Left side: Shell (50%)
+        pane size="50%" focus=true
+
+        // Right side: Claude Code + lazygit (50%)
+        pane size="50%" split_direction="horizontal" {
+            // Top: Claude Code CLI
+            pane size="50%" {
+                command "claude"
+            }
+
+            // Bottom: lazygit
+            pane size="50%" {
+                command "lazygit"
+            }
+        }
+    }
+}
